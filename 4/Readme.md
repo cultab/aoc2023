@@ -2,7 +2,6 @@
 # Part 1:
 
 ```py
-#!/usr/bin/env python3
 from utils import allInput, oneInput, example, red, green, yellow, dim
 
 sum = 0
@@ -32,31 +31,26 @@ for ticket in example():
 
 print("In total we won", yellow(sum), "points!")
 ```
+${\texttt{Card  \color{Goldenrod}{\\#4}\color{white} :}}$
 
-$$
-Card \textsf{\color{olive}#1}:
-\textsf{\color{green}	+1} because of \textsf{\color{red}83!} Matches now are worth \textsf{\color{olive}1}
-\textsf{\color{green}	+1} because of \textsf{\color{red}86!} Matches now are worth \textsf{\color{olive}1}
-\textsf{\color{green}	+2} because of \textsf{\color{red}17!} Matches now are worth \textsf{\color{olive}2}
-\textsf{\color{green}	+4} because of \textsf{\color{red}48!} Matches now are worth \textsf{\color{olive}4}
-\textsf{\color{green}8} points from card \textsf{\color{olive}#1}
-Card \textsf{\color{olive}#2}:
-\textsf{\color{green}	+1} because of \textsf{\color{red}61!} Matches now are worth \textsf{\color{olive}1}
-\textsf{\color{green}	+1} because of \textsf{\color{red}32!} Matches now are worth \textsf{\color{olive}1}
-\textsf{\color{green}2} points from card \textsf{\color{olive}#2}
-Card \textsf{\color{olive}#3}:
-\textsf{\color{green}	+1} because of \textsf{\color{red}21!} Matches now are worth \textsf{\color{olive}1}
-\textsf{\color{green}	+1} because of \textsf{\color{red}1!} Matches now are worth \textsf{\color{olive}1}
-\textsf{\color{green}2} points from card \textsf{\color{olive}#3}
-Card \textsf{\color{olive}#4}:
-\textsf{\color{green}	+1} because of \textsf{\color{red}84!} Matches now are worth \textsf{\color{olive}1}
-\textsf{\color{green}1} points from card \textsf{\color{olive}#4}
-Card \textsf{\color{olive}#5}:
-\textsf{\color{red}zero} points from card \textsf{\color{olive}#5}
-Card \textsf{\color{olive}#6}:
-\textsf{\color{red}zero} points from card \textsf{\color{olive}#6}
-In total we won \textsf{\color{olive}13} points!
-$$
+${\texttt{ \color{springgreen}{ +1}\color{white}  because of  \color{Maroon}{84!}\color{white}  Matches now are worth  \color{Goldenrod}{1}\color{white} }}$
+
+${\texttt{ \color{springgreen}{1}\color{white}  points from card  \color{Goldenrod}{\\#4}\color{white} }}$
+
+${\texttt{Card  \color{Goldenrod}{\\#5}\color{white} :}}$
+
+${\texttt{ \color{Maroon}{zero}\color{white}  points from card  \color{Goldenrod}{\\#5}\color{white} }}$
+
+${\texttt{Card  \color{Goldenrod}{\\#6}\color{white} :}}$
+
+${\texttt{ \color{Maroon}{zero}\color{white}  points from card  \color{Goldenrod}{\\#6}\color{white} }}$
+
+${\texttt{In total we won  \color{Goldenrod}{13}\color{white}  points!}}$
+
+
+
+
+
 
 # Part 2:
 
@@ -100,30 +94,50 @@ for card, copies in cards.items():
 print("or", green(f"{sum}"), "cards!")
 ```
 
-<pre>
-We only have 1 <span style="color:olive;">#1</span>:
-<span style="color:green;">	+1</span> cards of <span style="color:olive;">#2</span> because <span style="color:red;">48</span> matched!
-<span style="color:green;">	+1</span> cards of <span style="color:olive;">#3</span> because <span style="color:red;">17</span> matched!
-<span style="color:green;">	+1</span> cards of <span style="color:olive;">#4</span> because <span style="color:red;">83</span> matched!
-<span style="color:green;">	+1</span> cards of <span style="color:olive;">#5</span> because <span style="color:red;">86</span> matched!
-We have 2 <span style="color:olive;">#2s</span>:
-<span style="color:green;">	+2</span> cards of <span style="color:olive;">#3</span> because <span style="color:red;">32</span> matched!
-<span style="color:green;">	+2</span> cards of <span style="color:olive;">#4</span> because <span style="color:red;">61</span> matched!
-We have 4 <span style="color:olive;">#3s</span>:
-<span style="color:green;">	+4</span> cards of <span style="color:olive;">#4</span> because <span style="color:red;">1</span> matched!
-<span style="color:green;">	+4</span> cards of <span style="color:olive;">#5</span> because <span style="color:red;">21</span> matched!
-We have 8 <span style="color:olive;">#4s</span>:
-<span style="color:green;">	+8</span> cards of <span style="color:olive;">#5</span> because <span style="color:red;">84</span> matched!
-We have 14 <span style="color:olive;">#5s</span>:
-We only have 1 <span style="color:olive;">#6</span>:
-In the end we got:
-	1 copies of card <span style="color:olive;">#1</span>
-	2 copies of card <span style="color:olive;">#2</span>
-	4 copies of card <span style="color:olive;">#3</span>
-	8 copies of card <span style="color:olive;">#4</span>
-	14 copies of card <span style="color:olive;">#5</span>
-	1 copies of card <span style="color:olive;">#6</span>
-or <span style="color:green;">30</span> cards!
-</pre>
+${\texttt{We only have 1  \color{Goldenrod}{\\#1}\color{white} :}}$
 
-This file was created with the aha Ansi HTML Adapter. https://github.com/theZiz/aha
+${\texttt{ \color{springgreen}{ +1}\color{white}  cards of  \color{Goldenrod}{\\#2}\color{white}  because  \color{Maroon}{48}\color{white}  matched!}}$
+
+${\texttt{ \color{springgreen}{ +1}\color{white}  cards of  \color{Goldenrod}{\\#3}\color{white}  because  \color{Maroon}{17}\color{white}  matched!}}$
+
+${\texttt{ \color{springgreen}{ +1}\color{white}  cards of  \color{Goldenrod}{\\#4}\color{white}  because  \color{Maroon}{83}\color{white}  matched!}}$
+
+${\texttt{ \color{springgreen}{ +1}\color{white}  cards of  \color{Goldenrod}{\\#5}\color{white}  because  \color{Maroon}{86}\color{white}  matched!}}$
+
+${\texttt{We have 2  \color{Goldenrod}{\\#2s}\color{white} :}}$
+
+${\texttt{ \color{springgreen}{ +2}\color{white}  cards of  \color{Goldenrod}{\\#3}\color{white}  because  \color{Maroon}{32}\color{white}  matched!}}$
+
+${\texttt{ \color{springgreen}{ +2}\color{white}  cards of  \color{Goldenrod}{\\#4}\color{white}  because  \color{Maroon}{61}\color{white}  matched!}}$
+
+${\texttt{We have 4  \color{Goldenrod}{\\#3s}\color{white} :}}$
+
+${\texttt{ \color{springgreen}{ +4}\color{white}  cards of  \color{Goldenrod}{\\#4}\color{white}  because  \color{Maroon}{1}\color{white}  matched!}}$
+
+${\texttt{ \color{springgreen}{ +4}\color{white}  cards of  \color{Goldenrod}{\\#5}\color{white}  because  \color{Maroon}{21}\color{white}  matched!}}$
+
+${\texttt{We have 8  \color{Goldenrod}{\\#4s}\color{white} :}}$
+
+${\texttt{ \color{springgreen}{ +8}\color{white}  cards of  \color{Goldenrod}{\\#5}\color{white}  because  \color{Maroon}{84}\color{white}  matched!}}$
+
+${\texttt{We have 14  \color{Goldenrod}{\\#5s}\color{white} :}}$
+
+${\texttt{We only have 1  \color{Goldenrod}{\\#6}\color{white} :}}$
+
+${\texttt{In the end we got:}}$
+
+${\texttt{      1 copies of card  \color{Goldenrod}{\\#1}\color{white} }}$
+
+${\texttt{      2 copies of card  \color{Goldenrod}{\\#2}\color{white} }}$
+
+${\texttt{      4 copies of card  \color{Goldenrod}{\\#3}\color{white} }}$
+
+${\texttt{      8 copies of card  \color{Goldenrod}{\\#4}\color{white} }}$
+
+${\texttt{      14 copies of card  \color{Goldenrod}{\\#5}\color{white} }}$
+
+${\texttt{      1 copies of card  \color{Goldenrod}{\\#6}\color{white} }}$
+
+${\texttt{or  \color{springgreen}{30}\color{white}  cards!}}$
+
+This file was created with help from aha Ansi HTML Adapter. https://github.com/theZiz/aha
