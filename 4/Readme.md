@@ -32,30 +32,31 @@ for ticket in example():
 
 print("In total we won", yellow(sum), "points!")
 ```
-<pre>
-Card <span style="color:olive;">#1</span>:
-<span style="color:green;">	+1</span> because of <span style="color:red;">83!</span> Matches now are worth <span style="color:olive;">1</span>
-<span style="color:green;">	+1</span> because of <span style="color:red;">86!</span> Matches now are worth <span style="color:olive;">1</span>
-<span style="color:green;">	+2</span> because of <span style="color:red;">17!</span> Matches now are worth <span style="color:olive;">2</span>
-<span style="color:green;">	+4</span> because of <span style="color:red;">48!</span> Matches now are worth <span style="color:olive;">4</span>
-<span style="color:green;">8</span> points from card <span style="color:olive;">#1</span>
-Card <span style="color:olive;">#2</span>:
-<span style="color:green;">	+1</span> because of <span style="color:red;">61!</span> Matches now are worth <span style="color:olive;">1</span>
-<span style="color:green;">	+1</span> because of <span style="color:red;">32!</span> Matches now are worth <span style="color:olive;">1</span>
-<span style="color:green;">2</span> points from card <span style="color:olive;">#2</span>
-Card <span style="color:olive;">#3</span>:
-<span style="color:green;">	+1</span> because of <span style="color:red;">21!</span> Matches now are worth <span style="color:olive;">1</span>
-<span style="color:green;">	+1</span> because of <span style="color:red;">1!</span> Matches now are worth <span style="color:olive;">1</span>
-<span style="color:green;">2</span> points from card <span style="color:olive;">#3</span>
-Card <span style="color:olive;">#4</span>:
-<span style="color:green;">	+1</span> because of <span style="color:red;">84!</span> Matches now are worth <span style="color:olive;">1</span>
-<span style="color:green;">1</span> points from card <span style="color:olive;">#4</span>
-Card <span style="color:olive;">#5</span>:
-<span style="color:red;">zero</span> points from card <span style="color:olive;">#5</span>
-Card <span style="color:olive;">#6</span>:
-<span style="color:red;">zero</span> points from card <span style="color:olive;">#6</span>
-In total we won <span style="color:olive;">13</span> points!
-</pre>
+
+$$
+Card \textsf{\color{olive}#1}:
+\textsf{\color{green}	+1} because of \textsf{\color{red}83!} Matches now are worth \textsf{\color{olive}1}
+\textsf{\color{green}	+1} because of \textsf{\color{red}86!} Matches now are worth \textsf{\color{olive}1}
+\textsf{\color{green}	+2} because of \textsf{\color{red}17!} Matches now are worth \textsf{\color{olive}2}
+\textsf{\color{green}	+4} because of \textsf{\color{red}48!} Matches now are worth \textsf{\color{olive}4}
+\textsf{\color{green}8} points from card \textsf{\color{olive}#1}
+Card \textsf{\color{olive}#2}:
+\textsf{\color{green}	+1} because of \textsf{\color{red}61!} Matches now are worth \textsf{\color{olive}1}
+\textsf{\color{green}	+1} because of \textsf{\color{red}32!} Matches now are worth \textsf{\color{olive}1}
+\textsf{\color{green}2} points from card \textsf{\color{olive}#2}
+Card \textsf{\color{olive}#3}:
+\textsf{\color{green}	+1} because of \textsf{\color{red}21!} Matches now are worth \textsf{\color{olive}1}
+\textsf{\color{green}	+1} because of \textsf{\color{red}1!} Matches now are worth \textsf{\color{olive}1}
+\textsf{\color{green}2} points from card \textsf{\color{olive}#3}
+Card \textsf{\color{olive}#4}:
+\textsf{\color{green}	+1} because of \textsf{\color{red}84!} Matches now are worth \textsf{\color{olive}1}
+\textsf{\color{green}1} points from card \textsf{\color{olive}#4}
+Card \textsf{\color{olive}#5}:
+\textsf{\color{red}zero} points from card \textsf{\color{olive}#5}
+Card \textsf{\color{olive}#6}:
+\textsf{\color{red}zero} points from card \textsf{\color{olive}#6}
+In total we won \textsf{\color{olive}13} points!
+$$
 
 # Part 2:
 
