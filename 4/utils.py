@@ -29,19 +29,19 @@ def example() -> str:
 
 def red(msg: str):
     """Return @msg with termcodes for a red fg color."""
-    return "\033[0;31m" + str(msg) + "\033[0m" if isatty(1) else msg
+    return "\033[0;31m" + str(msg) + "\033[0m"
 
 
 def green(msg: str):
     """Return @msg with termcodes for a green fg color."""
-    return "\033[0;32m" + str(msg) + "\033[0m" if isatty(1) else msg
+    return "\033[0;32m" + str(msg) + "\033[0m"
 
 
 def yellow(msg: str):
     """Return @msg with termcodes for a yellow fg color."""
-    return "\033[0;33m" + str(msg) + "\033[0m" if isatty(1) else msg
+    return "\033[0;33m" + str(msg) + "\033[0m"
 
 
 def dim(msg: str):
     """Return @msg with termcodes for a dim fg color."""
-    return "\033[2m" + str(msg) + "\033[0m" if isatty(1) else msg
+    return "\033[2m" + str(msg) + "\033[0m"
