@@ -1,5 +1,16 @@
 """Utilities for advent of code 2023."""
-from os import isatty
+# from os import isatty
+from typing import Iterable
+
+
+def pairwise(it: Iterable[any]):
+    """
+    Return pairs from iterable.
+
+    s -> (s0, s1), (s2, s3), (s4, s5), ..."
+    """
+    a = iter(it)
+    return zip(a, a)
 
 
 def isDigit(c: str) -> str | bool:
@@ -27,36 +38,40 @@ def example() -> str:
             yield line.strip()
 
 
-def red(msg: str):
-    """Return @msg with termcodes for a red fg color."""
-    return "\033[1;31m" + str(msg) + "\033[0m"
+def red(msg: object, bold=True):
+    """Return @msg with termcodes for red text."""
+    return _termEncoded(msg, 1 if bold else 0, 31)
 
 
-def green(msg: str):
-    """Return @msg with termcodes for a green fg color."""
-    return "\033[1;32m" + str(msg) + "\033[0m"
+def green(msg: object, bold=True):
+    """Return @msg with termcodes for green text."""
+    return _termEncoded(msg, 1 if bold else 0, 32)
 
 
-def yellow(msg: str):
-    """Return @msg with termcodes for a yellow fg color."""
-    return "\033[1;33m" + str(msg) + "\033[0m"
+def yellow(msg: object, bold=True):
+    """Return @msg with termcodes for yellow text."""
+    return _termEncoded(msg, 1 if bold else 0, 33)
 
 
-def blue(msg: str):
-    """Return @msg with termcodes for a blue fg color."""
-    return "\033[1;34m" + str(msg) + "\033[0m"
+def blue(msg: object, bold=True):
+    """Return @msg with termcodes for blue text."""
+    return _termEncoded(msg, 1 if bold else 0, 34)
 
 
-def cyan(msg: str):
-    """Return @msg with termcodes for a cyan fg color."""
-    return "\033[1;35m" + str(msg) + "\033[0m"
+def purple(msg: object, bold=True):
+    """Return @msg with termcodes for purple text."""
+    return _termEncoded(msg, 1 if bold else 0, 35)
 
 
-def purple(msg: str):
-    """Return @msg with termcodes for a purple fg color."""
-    return "\033[1;36m" + str(msg) + "\033[0m"
+def cyan(msg: object, bold=True):
+    """Return @msg with termcodes for cyan text."""
+    return _termEncoded(msg, 1 if bold else 0, 36)
 
 
-def dim(msg: str):
+def dim(msg: object):
     """Return @msg with termcodes for a dim fg color."""
-    return "\033[2m" + str(msg) + "\033[0m"
+    return _termEncoded(msg, 2, None)
+
+
+def _termEncoded(msg: any, one: int, two: int) -> str:
+    return f"\033[{one}{';' if two else ''}{two if two else ''}m{msg}\033[0m"

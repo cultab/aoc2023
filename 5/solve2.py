@@ -1,7 +1,7 @@
 #!/bin/env python3
 
 import sys
-from utils import allInput, oneInput, example, red, green, yellow, dim, blue, cyan, purple
+from utils import allInput, oneInput, example, red, green, yellow, dim, blue, cyan, purple, pairwise
 from functools import reduce
 
 colors = [red, green, yellow, blue, cyan, purple]
@@ -14,12 +14,19 @@ def color(n: int):
 class Range():
     """Represents a range from @start to @end."""
 
-    def __init__(self, start, len):
+    def __init__(self, start: int, end: int):
         self.start = start
-        self.end = start + len
+        self.end = end
 
     def contains(self, n: int) -> bool:
         return self.start < n < self.end
+
+    def __iand__(self, othr):
+        ret = []
+        if othr.start < self.start:  # range from r.start to self.source.start
+            ret.append(Range(othr.start, min(othr.start, self.start)))
+        if othr.end > self.end:
+            ret.append(Range(self.end, othr.end - self.end))
 
     def __repr__(self) -> str:
         return f"[{self.start:>3},{self.end:>3}]"
@@ -31,14 +38,20 @@ class Mapping():
     def __init__(self, string: str):
         lst = [int(x) for x in string.split(" ")]
 
-        self.source = Range(lst[1], lst[2])
-        self.dest = Range(lst[0], lst[2])
+        self.source = Range(lst[1], lst[1] + lst[2])
+        self.dest = Range(lst[0], lst[0] + lst[2])
 
     def convert(self, n: int) -> int | bool:
         if self.source.contains(n):
             return self.dest.start - self.source.start + n
         else:
             return False
+
+    def convertRange(self, r: Range):
+        ret: list[Range] = []
+        ranges = []
+        if r.start < self.source.start:  # range from r.start to self.source.start
+            ranges.append(Range(r.start, self.source.start - r.start - 1))
 
     def __repr__(self) -> str:
         diff = self.dest.start - self.source.start
@@ -72,6 +85,10 @@ class Map(list[Mapping]):
         print(f"{self.src:>15}({color(s)}) -> {self.dst}({color(d)})")
         return d
 
+    # def convertRange(self, r: Range):
+    #     for mapping in self:
+    #         if r.start < mapping.
+
     def __str__(self):
         string = f"{self.name}\n"
         for mapping in self:
@@ -82,7 +99,11 @@ class Map(list[Mapping]):
 sys.stdin = open("example")
 # sys.stdin = open("input")
 
-seeds = [int(x) for x in input().split(" ")[1:]]
+seeds = []
+for start, length in pairwise(input().split(" ")[1:]):
+    print(start, length)
+    seeds.append(Range(int(start), int(length)))
+
 input()
 
 seed2soil = Map(input())
@@ -134,11 +155,14 @@ print(f"{light2temperature}")
 print(f"{temperature2humidity}")
 print(f"{humidity2location}")
 
-locations = []
-for seed in seeds:
-    print(f"Seed({color(seed)})")
-    location = seed2location(seed)
-    locations.append(location)
-    print(f"Location({color(location)})\n")
+for seed_range in seeds:
+    print(seed_range)
 
-print(reduce(lambda a, b: a if a < b else b, locations))
+# locations = []
+# for seed in seeds:
+#     print(f"Seed({color(seed)})")
+#     location = seed2location(seed)
+#     locations.append(location)
+#     print(f"Location({color(location)})\n")
+#
+# print(reduce(lambda a, b: a if a < b else b, locations))
