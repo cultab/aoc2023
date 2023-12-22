@@ -79,8 +79,8 @@ class Map(list[Mapping]):
         return string
 
 
-sys.stdin = open("example")
-# sys.stdin = open("input")
+# sys.stdin = open("example")
+sys.stdin = open("input")
 
 seeds = [int(x) for x in input().split(" ")[1:]]
 input()
