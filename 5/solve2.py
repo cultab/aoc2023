@@ -1,8 +1,16 @@
 #!/bin/env python3
 
 import sys
-from utils import allInput, oneInput, example, red, green, yellow, dim, blue, cyan, purple, pairwise
-from functools import reduce
+
+from utils import (
+    blue,
+    cyan,
+    green,
+    pairwise,
+    purple,
+    red,
+    yellow,
+)
 
 colors = [red, green, yellow, blue, cyan, purple]
 
@@ -19,14 +27,38 @@ class Range():
         self.end = end
 
     def contains(self, n: int) -> bool:
-        return self.start < n < self.end
+        return self.start <= n <= self.end
 
-    def __iand__(self, othr):
-        ret = []
-        if othr.start < self.start:  # range from r.start to self.source.start
-            ret.append(Range(othr.start, min(othr.start, self.start)))
-        if othr.end > self.end:
-            ret.append(Range(self.end, othr.end - self.end))
+    # def __iand__(s, o):
+    #     ret = []
+    #
+    #     if o < s:
+    #         ret.append(o)
+    #
+    #     if s < o:
+    #         ret.append(o)
+    #
+    #     if o.start >= s.start and o.end <= s.start:
+    #         ret.append(o)
+    #
+    #     if o.start < o.end < s.end:
+    #         ret.append(Range[o.start, s.start - 1])
+    #         ret.append(Range[s.start, o.end])
+    #
+    #     if s.start < o.start < o.end < s.end:
+    #         ret.append(o)
+    #
+    #     if s.start < o.start < s.end < o.end:
+    #         ret.append(Range[o.start, s.end - 1])
+    #         ret.append(Range[s.end, o.end])
+    #
+    #
+    #
+    # def __lt__(self, other):
+    #     return self.end < other.start
+    #
+    # def __gt__(self, other):
+    #     return self.start > other.end
 
     def __repr__(self) -> str:
         return f"[{self.start:>3},{self.end:>3}]"
@@ -38,27 +70,62 @@ class Mapping():
     def __init__(self, string: str):
         lst = [int(x) for x in string.split(" ")]
 
-        self.source = Range(lst[1], lst[1] + lst[2])
-        self.dest = Range(lst[0], lst[0] + lst[2])
+        self.src = Range(lst[1], lst[1] + lst[2])
+        self.dst = Range(lst[0], lst[0] + lst[2])
+        self.diff = self.dst.start - self.src.start
 
     def convert(self, n: int) -> int | bool:
-        if self.source.contains(n):
-            return self.dest.start - self.source.start + n
+        """Convert."""
+        if self.src.contains(n):
+            return self.diff + n
         else:
             return False
 
-    def convertRange(self, r: Range):
-        ret: list[Range] = []
-        ranges = []
-        if r.start < self.source.start:  # range from r.start to self.source.start
-            ranges.append(Range(r.start, self.source.start - r.start - 1))
+    def convertEndpoints(self, start: int, end: int) -> Range:
+        """
+        Convert source range to destination range.
+
+        Implies that start and end are within the source range.
+        """
+        ret = Range(self.convert(start), self.convert(end))
+        if self.convert(start) == 53:
+            print("============================")
+            print(f"{end=}")
+            print(f"{ret=}")
+        return ret
+
+    def convertRange(self, r: Range) -> (list[Range], Range):
+        converted: Range = None
+        same = []
+        if r.end < self.src.start:
+            same.append(r)
+        elif self.src.start < r.start < self.src.end < r.end:
+            converted = self.convertEndpoints(r.start, self.src.end)
+            same.append(Range(self.src.end + 1, r.end))
+        elif r.start < self.src.start < r.end < self.src.end:
+            same.append(Range(r.start, self.src.start - 1),)
+            converted = self.convertEndpoints(self.src.start, r.end)
+        elif self.src.start < r.start < r.end < self.src.end:
+            converted = self.convertEndpoints(r.start, r.end)
+        elif r.start < self.src.start < self.src.end < r.end:
+            same.append(Range(r.start, self.src.start-1))
+            converted = self.convertEndpoints(self.src.start, self.src.end)
+            same.append(Range(self.src.end + 1, r.end))
+        elif self.src.end < r.start:
+            same.append(r)
+
+        # print(f"{same=}\n{converted=}")
+        return same, converted
 
     def __repr__(self) -> str:
-        diff = self.dest.start - self.source.start
+        diff = self.dst.start - self.src.start
         if diff > 0:
-            return f"{self.source} -> {self.dest} {green(f"+{diff}"):>15}"
+            return f"{self.src} -> {self.dst} {green(f'+{diff}'):>15}"
         else:
-            return f"{self.source} -> {self.dest} {red(diff):>15}"
+            return f"{self.src} -> {self.dst} {red(diff):>15}"
+
+    def getDiff(self) -> str:
+        return green(f"+{self.diff}") if self.diff > 0 else red(self.diff)
 
 
 class Map(list[Mapping]):
@@ -85,9 +152,31 @@ class Map(list[Mapping]):
         print(f"{self.src:>15}({color(s)}) -> {self.dst}({color(d)})")
         return d
 
-    # def convertRange(self, r: Range):
-    #     for mapping in self:
-    #         if r.start < mapping.
+    def convertRange(self, r: Range) -> list[Range]:
+        check = [r]
+        converted = []
+        while check:
+            rng = check.pop()
+            for mapping in self:
+                checkNext, conv = mapping.convertRange(rng)
+                if conv:
+                    print(f"          {mapping.getDiff()}")
+                    print(f"{rng} -> {conv}")
+                    check.extend(checkNext)
+                    converted.append(conv)
+                    break
+            else:
+                if check:
+                    print(f"          {yellow('~')}")
+                    print(f"{r} -> {check[0]}...")
+                    converted.extend(check)
+                else:
+                    print(f"          {yellow('~')}")
+                    print(f"{r} == {rng}...")
+                    converted.append(rng)
+                break
+
+        return converted
 
     def __str__(self):
         string = f"{self.name}\n"
@@ -96,13 +185,13 @@ class Map(list[Mapping]):
         return string
 
 
-sys.stdin = open("example")
-# sys.stdin = open("input")
+# sys.stdin = open("example")
+sys.stdin = open("input")
 
-seeds = []
+seed_ranges = []
 for start, length in pairwise(input().split(" ")[1:]):
     print(start, length)
-    seeds.append(Range(int(start), int(length)))
+    seed_ranges.append(Range(int(start), int(start) + int(length)))
 
 input()
 
@@ -147,17 +236,54 @@ def seed2location(seed: int):
     return location
 
 
-print(f"{seed2soil}")
-print(f"{soil2fertilizer}")
-print(f"{fertilizer2water}")
-print(f"{water2light}")
-print(f"{light2temperature}")
-print(f"{temperature2humidity}")
-print(f"{humidity2location}")
+# print(f"{seed2soil}")
+# print(f"{soil2fertilizer}")
+# print(f"{fertilizer2water}")
+# print(f"{water2light}")
+# print(f"{light2temperature}")
+# print(f"{temperature2humidity}")
+# print(f"{humidity2location}")
 
-for seed_range in seeds:
+maps = [
+    seed2soil,
+    soil2fertilizer,
+    fertilizer2water,
+    water2light,
+    light2temperature,
+    temperature2humidity,
+    humidity2location,
+]
+
+last = []
+
+for seed_range in seed_ranges:
     print(seed_range)
+    converting = [seed_range]
+    toConvert = []
+    for m in maps:
+        print("using the", m)
+        print("\tconverting", converting)
+        for rng in converting:
+            # print("->>>", rng)
+            toConvert.extend(m.convertRange(rng))
+            print("up next", toConvert)
+            # print(rng, " becomes: \n")
+            # for c in toConvert:
+            #     print(f"\t{c}")
+        converting.clear()
+        converting = toConvert
+        last = converting
+        toConvert = []
 
+
+m = last[0].start
+for r in last:
+    if r.start < m:
+        m = r.start
+
+print("====================================")
+print(m)
+print("====================================")
 # locations = []
 # for seed in seeds:
 #     print(f"Seed({color(seed)})")
