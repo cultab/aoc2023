@@ -21,6 +21,9 @@ class Type(Enum):
     Four_of_a_Kind = 5e6
     Five_of_a_Kind = 6e6
 
+    def __str__(self):
+        return self._name_.replace("_", " ")
+
 
 def cardToValue(card: str) -> int:  # base13
     return {
@@ -51,7 +54,7 @@ class Hand:
 
         self.value = int(self.type._value_)
         print(
-            f"{self} is a hand of {cyan(self.type._name_)} worth {yellow(self.value)} points!"
+            f"{self} is a hand of {cyan(self.type)} worth {yellow(self.value)} points!"
         )
         for i, card in enumerate(hand):
             extra = cardToValue(card) * (13 ** (4 - i))
@@ -103,42 +106,40 @@ def getType(hand_str: str) -> (Type, dict[str, callable]):
 
     colors["J"] = red
     card = "J"
-    count = hand[card]
-
-    # only_jokers = (x for x in hand.items() if x[0] == "J")
-    match (count, type):
-        case [5, _]:
-            type = type.Five_of_a_Kind
-        case [4, Type.High_Card]:
-            type = Type.Five_of_a_Kind
-        case [3, Type.One_Pair]:
-            type = Type.Five_of_a_Kind
-        case [3, Type.High_Card]:
-            type = Type.Four_of_a_Kind
-        case [2, Type.Three_of_a_Kind]:
-            type = Type.Five_of_a_Kind
-        case [2, Type.One_Pair]:
-            type = Type.Four_of_a_Kind
-        case [2, Type.High_Card]:
-            type = Type.Three_of_a_Kind
-        case [1, Type.Four_of_a_Kind]:
-            type = Type.Five_of_a_Kind
-        case [1, Type.Three_of_a_Kind]:
-            type = Type.Four_of_a_Kind
-        case [1, Type.Two_Pairs]:
-            type = Type.Full_House
-        case [1, Type.One_Pair]:
-            type = Type.Three_of_a_Kind
-        case [1, Type.High_Card]:
-            type = Type.One_Pair
-
+    if count := hand.get(card):
+        # only_jokers = (x for x in hand.items() if x[0] == "J")
+        match (count, type):
+            case [5, _]:
+                type = type.Five_of_a_Kind
+            case [4, Type.High_Card]:
+                type = Type.Five_of_a_Kind
+            case [3, Type.One_Pair]:
+                type = Type.Five_of_a_Kind
+            case [3, Type.High_Card]:
+                type = Type.Four_of_a_Kind
+            case [2, Type.Three_of_a_Kind]:
+                type = Type.Five_of_a_Kind
+            case [2, Type.One_Pair]:
+                type = Type.Four_of_a_Kind
+            case [2, Type.High_Card]:
+                type = Type.Three_of_a_Kind
+            case [1, Type.Four_of_a_Kind]:
+                type = Type.Five_of_a_Kind
+            case [1, Type.Three_of_a_Kind]:
+                type = Type.Four_of_a_Kind
+            case [1, Type.Two_Pairs]:
+                type = Type.Full_House
+            case [1, Type.One_Pair]:
+                type = Type.Three_of_a_Kind
+            case [1, Type.High_Card]:
+                type = Type.One_Pair
 
     return type, colors
 
 
 def parse():
     for line in allInput():
-    # for line in example():
+        # for line in example():
         hand, bid = line.split(" ")
         yield hand, int(bid)
 
@@ -156,7 +157,7 @@ for rank, hand in enumerate(hands, start=1):
     won = hand.bid * rank
     winnings += won
     print(
-        f"{hand} ({cyan(hand.type._name_)}) is worth {yellow(hand.value):>17} points with a bid of {green(f'$ {hand.bid}')}"
+        f"{hand} ({cyan(hand.type)}) is worth {yellow(hand.value):>17} points with a bid of {green(f'$ {hand.bid}')}"
     )
     print(f"winning an additional {green(f'$ {won:>4}')}")
 

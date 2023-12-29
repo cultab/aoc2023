@@ -20,6 +20,9 @@ class Type(Enum):
     Four_of_a_Kind = 5e6
     Five_of_a_Kind = 6e6
 
+    def __str__(self):
+        return self._name_.replace("_", " ")
+
 
 def cardToValue(card: str) -> int:  # base13
     return {
@@ -50,7 +53,7 @@ class Hand:
 
         self.value = int(self.type._value_)
         print(
-            f"{self} is a hand of {yellow(self.type._name_)} worth {yellow(self.value)} points!"
+            f"{self} is a hand of {yellow(self.type)} worth {yellow(self.value)} points!"
         )
         for i, card in enumerate(hand):
             extra = cardToValue(card) * (13 ** (4 - i))
